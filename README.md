@@ -1,5 +1,9 @@
 # Market Data Toolkit
 
+[![Tests](https://github.com/weston-boyd/market-data-toolkit/actions/workflows/python-app.yml/badge.svg)](https://github.com/weston-boyd/market-data-toolkit/actions/workflows/python-app.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A tested Python toolkit for validating, normalizing, aggregating, and analyzing financial time-series data.
 
 This public project is adapted from reusable market-data infrastructure developed for **WesB Algos**. It contains generic data-engineering components only; no proprietary trading strategies or broker credentials are included.
@@ -17,6 +21,8 @@ This public project is adapted from reusable market-data infrastructure develope
 - DataFrame quality summaries
 - Higher-timeframe OHLCV resampling
 - Automated pytest coverage
+- Package-specific exception hierarchy
+- Expanded quickstart and API documentation
 - Working example using synthetic data
 
 ## Project Structure
@@ -57,6 +63,12 @@ python -m pip install -e ".[dev]"
 ```bash
 pytest
 ```
+
+## Documentation
+
+- [Quickstart](docs/QUICKSTART.md)
+- [Public API](docs/API.md)
+- [Design Notes](docs/DESIGN.md)
 
 ## Run the Example
 

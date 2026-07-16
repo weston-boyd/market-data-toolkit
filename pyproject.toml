@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "market-data-toolkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "A tested Python toolkit for validating, normalizing, aggregating, and analyzing financial time-series data."
 readme = "README.md"
 requires-python = ">=3.11"

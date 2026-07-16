@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
+from .exceptions import AggregationError
 from .models import MarketBar, MarketTick
 
 
@@ -46,7 +47,7 @@ class TimeBarAggregator:
 
     def __init__(self, timeframe: str, seconds: int):
         if seconds < 1:
-            raise ValueError("seconds must be >= 1")
+            raise AggregationError("seconds must be >= 1")
         self.timeframe = timeframe
         self.seconds = int(seconds)
         self._working: dict[str, _WorkingBar] = {}
@@ -60,7 +61,7 @@ class TimeBarAggregator:
             return []
 
         if bucket_start < current.start:
-            raise ValueError("ticks must arrive in nondecreasing timestamp order")
+            raise AggregationError("ticks must arrive in nondecreasing timestamp order")
 
         if bucket_start == current.start:
             current.update(tick)

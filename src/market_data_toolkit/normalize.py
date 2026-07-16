@@ -5,6 +5,7 @@ from typing import Any
 
 import pandas as pd
 
+from .exceptions import NormalizationError
 from .models import MarketTick
 
 
@@ -14,7 +15,7 @@ class TickNormalizer:
     def __init__(self, source_name: str):
         source_name = source_name.strip()
         if not source_name:
-            raise ValueError("source_name must not be empty")
+            raise NormalizationError("source_name must not be empty")
         self.source_name = source_name
 
     def from_mapping(
@@ -29,7 +30,7 @@ class TickNormalizer:
         last = self._first(payload, "last", "Last", "price", "close")
 
         if timestamp is None or symbol is None or last is None:
-            raise ValueError("payload must include timestamp, symbol, and last/price")
+            raise NormalizationError("payload must include timestamp, symbol, and last/price")
 
         return MarketTick(
             timestamp=self._parse_timestamp(timestamp),
