@@ -1,57 +1,102 @@
 # Market Data Toolkit
 
-A Python toolkit for validating, cleaning, and analyzing financial time-series data.
+A tested Python toolkit for validating, normalizing, aggregating, and analyzing financial time-series data.
 
----
+This public project is adapted from reusable market-data infrastructure developed for **WesB Algos**. It contains generic data-engineering components only; no proprietary trading strategies or broker credentials are included.
 
-## Overview
+## Implemented Features
 
-Market Data Toolkit is a collection of reusable utilities for working with financial market data.
+- Canonical tick and OHLCV bar models
+- Vendor/broker tick-payload normalization
+- UTC timestamp normalization
+- Fixed-time OHLCV aggregation from ticks
+- Required-column and numeric-value validation
+- Duplicate and out-of-order timestamp detection
+- OHLC price-integrity checks
+- CSV integrity reports
+- DataFrame quality summaries
+- Higher-timeframe OHLCV resampling
+- Automated pytest coverage
+- Working example using synthetic data
 
-The project focuses on making historical datasets easier to validate before they are used for research, backtesting, and machine learning.
+## Project Structure
 
-Current development focuses on:
+```text
+market-data-toolkit/
+├── src/market_data_toolkit/
+│   ├── models.py
+│   ├── normalize.py
+│   ├── aggregate.py
+│   ├── validate.py
+│   ├── integrity.py
+│   └── resample.py
+├── tests/
+├── examples/
+├── docs/
+└── pyproject.toml
+```
 
-- Time-series validation
-- Timestamp normalization
-- Missing data detection
-- OHLCV integrity checks
-- Data quality reporting
-- Statistical summaries
+## Installation
 
----
+```bash
+git clone https://github.com/weston-boyd/market-data-toolkit.git
+cd market-data-toolkit
+python -m venv .venv
+```
 
-## Planned Features
+Windows PowerShell:
 
-- CSV validation
-- Parquet validation
-- Duplicate timestamp detection
-- Missing candle detection
-- Timezone conversion
-- Resampling utilities
-- Feature engineering helpers
-- Data visualization
-- Performance statistics
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+```
 
----
+## Run the Tests
 
-## Tech Stack
+```bash
+pytest
+```
 
-- Python
-- Pandas
-- NumPy
-- PyArrow
-- Pytest
+## Run the Example
 
----
+```bash
+python examples/example_pipeline.py
+```
 
-## Status
+## Quick Example
 
-🚧 Active development
+```python
+import pandas as pd
 
-This repository is being developed alongside larger quantitative research projects and will continue to expand over time.
+from market_data_toolkit import validate_ohlcv_frame, resample_ohlcv
 
----
+frame = pd.DataFrame(
+    {
+        "timestamp": pd.date_range("2026-01-01 09:30", periods=5, freq="1min", tz="UTC"),
+        "open": [100, 101, 102, 103, 104],
+        "high": [101, 102, 103, 104, 105],
+        "low": [99, 100, 101, 102, 103],
+        "close": [100.5, 101.5, 102.5, 103.5, 104.5],
+        "volume": [10, 12, 8, 15, 11],
+    }
+)
+
+report = validate_ohlcv_frame(frame)
+bars_5m = resample_ohlcv(frame, "5min")
+
+print(report)
+print(bars_5m)
+```
+
+## Design Goals
+
+- Deterministic behavior
+- Clear validation failures
+- Small, composable functions
+- Strong typing and documentation
+- No dependency on a specific broker or strategy
+- Reusable in research, replay, and data-quality workflows
 
 ## License
 
