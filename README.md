@@ -6,7 +6,7 @@
 
 A tested Python toolkit for validating, normalizing, aggregating, and analyzing financial time-series data.
 
-This public project is adapted from reusable market-data infrastructure developed for **WesB Algos**. It contains generic data-engineering components only; no proprietary trading strategies or broker credentials are included.
+This repository contains reusable market-data engineering components extracted from the private WesB Algos research platform. It includes only generic data-processing infrastructure; no proprietary trading strategies, alpha models, broker integrations, or research datasets are included.
 
 ## Implemented Features
 
